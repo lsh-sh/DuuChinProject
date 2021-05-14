@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:duuchinapp/page/home_page.dart';
+import 'package:duuchinapp/page/root_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -50,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
   void _jumpToHomePage() {
     _timer?.cancel();
     Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+        MaterialPageRoute(builder: (context) => RootPage()), (route) => false);
   }
 
   //跳过按钮

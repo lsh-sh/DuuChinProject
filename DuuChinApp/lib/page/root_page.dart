@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class RootPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _RootPageState createState() => _RootPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
   Map<String, String> _bottomNavNames = {
     "home": "首页",
@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
           width: 24,
           height: 24,
         ),
+        tooltip: "",
         label: value);
   }
 

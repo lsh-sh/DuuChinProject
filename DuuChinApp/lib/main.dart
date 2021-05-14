@@ -1,3 +1,4 @@
+import 'package:duuchinapp/config/app_theme.dart';
 import 'package:duuchinapp/page/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: '读琴',
       debugShowCheckedModeBanner: false,
+      theme: themeData,
       home:SplashPage(),
     );
   }
