@@ -1,3 +1,7 @@
+import 'package:duuchinapp/page/root_page/home_page.dart';
+import 'package:duuchinapp/page/root_page/music_page.dart';
+import 'package:duuchinapp/page/root_page/profile_page.dart';
+import 'package:duuchinapp/page/root_page/tiny_video_page.dart';
 import 'package:flutter/material.dart';
 
 class RootPage extends StatefulWidget {
@@ -7,13 +11,20 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 0;
-  Map<String, String> _bottomNavNames = {
+  final Map<String, String> _bottomNavNames = {
     "home": "首页",
     "music": "音乐",
     "create_media": "",
     "tiny_video": "小视频",
     "profile": "我的"
   };
+  final List<Widget> pages = [
+    HomePage(),
+    MusicPage(),
+    Container(),
+    TinyVideoPage(),
+    ProfilePage()
+  ];
   List<BottomNavigationBarItem> _bottomNavItems = [];
 
   @override
@@ -27,9 +38,7 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("首页"),
-      ),
+      body:pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: _bottomNavItems,
         onTap: _onTapClicked,
