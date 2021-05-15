@@ -23,6 +23,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    # http请求库
+  dio: ^4.0.0
+  # 下拉刷新插件
+  flutter_easyrefresh: ^2.2.0
+  # 高性能的状态管理、智能的依赖注入和便捷的路由管理插件
+  get: ^4.1.4
+  # 视频播放器
+  video_player: ^2.1.1
+  # 跑马灯
+  marquee: ^2.1.0
+  # 懒加载的层叠组件
+  proste_indexed_stack: ^0.1.1
+  # 底部扩散模糊动画
+  ripple_backdrop_animate_route: ^0.2.0
 
 
   # The following adds the Cupertino Icons font to your application.

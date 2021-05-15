@@ -17,4 +17,5 @@ class MyApp extends StatelessWidget {
       home:SplashPage(),
     );
   }
+
 }
