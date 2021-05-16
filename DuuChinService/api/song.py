@@ -16,12 +16,43 @@ def getSongList():
         return jsonify(code=500, msg=str(e))
 
     try:
-        page_data = TSong.query.outerjoin(TUser,TUser.id==TSong.userId).paginate(page, limit)
-        data = []
-        for it in page_data.items:
-            item = it.__dict__.copy()
-            del item['_sa_instance_state']
-            data.append(item)
+        page_data = TSong.query.outerjoin(TUser,TUser.id==TSong.userId).\
+            with_entities(
+                TSong.id,
+                TSong.userId,
+                TSong.coverPictureUrl,
+                TSong.songUrl,
+                TSong.cnName,
+                TSong.enName,
+                TSong.commentCount,
+                TSong.thumbUpCount,
+                TSong.readCount,
+            TUser.id,
+            TUser.coverPictureUrl,
+            TUser.nickname,
+            TUser.type,
+            TUser.musicCount,
+            TUser.musicPlayCount,
+        ).paginate(page, limit)
+        data = [{
+            "id":it[0],
+            "userId":it[1],
+            "coverPictureUrl":it[2],
+            "songUrl":it[3],
+            "cnName":it[4],
+            "enName":it[5],
+            "commentCount":it[6],
+            "thumbUpCount":it[7],
+            "readCount":it[8],
+            "user":{
+                "id":it[9],
+                "coverPictureUrl":it[10],
+                "nickname":it[11],
+                "type":it[12],
+                "musicCount":it[13],
+                "musicPlayCount":it[14]
+            }
+        }for it in page_data.items]
 
         pageinfo = {
             "total": page_data.total,
