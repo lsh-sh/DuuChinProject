@@ -1,5 +1,5 @@
 import 'package:duuchinapp/config/app_theme.dart';
-import 'package:duuchinapp/page/splash_page.dart';
+import 'package:duuchinapp/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

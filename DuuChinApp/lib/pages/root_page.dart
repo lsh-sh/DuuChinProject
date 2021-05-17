@@ -1,7 +1,7 @@
-import 'package:duuchinapp/page/root_page/home_page.dart';
-import 'package:duuchinapp/page/root_page/music_page.dart';
-import 'package:duuchinapp/page/root_page/profile_page.dart';
-import 'package:duuchinapp/page/root_page/tiny_video_page.dart';
+import 'package:duuchinapp/pages/root_pages/home_page.dart';
+import 'package:duuchinapp/pages/root_pages/music_page.dart';
+import 'package:duuchinapp/pages/root_pages/profile_page.dart';
+import 'package:duuchinapp/pages/root_pages/tiny_video_page.dart';
 import 'package:flutter/material.dart';
 
 class RootPage extends StatefulWidget {
