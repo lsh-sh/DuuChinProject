@@ -33,7 +33,7 @@ def getSongList():
             TUser.type,
             TUser.musicCount,
             TUser.musicPlayCount,
-        ).paginate(page, limit)
+        ).order_by(TSong.id.asc()).paginate(page, limit)
         data = [{
             "id":it[0],
             "userId":it[1],

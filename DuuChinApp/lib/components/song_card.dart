@@ -1,3 +1,5 @@
+import 'package:duuchinapp/components/avatar_role_name.dart';
+import 'package:duuchinapp/components/comment_like_read.dart';
 import 'package:duuchinapp/config/app_colors.dart';
 import 'package:duuchinapp/models/song_model.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +17,7 @@ class SongCard extends StatelessWidget {
               Border(top: BorderSide(color: Colors.black.withOpacity(0.1)))),
       padding: EdgeInsets.all(20),
       child: Row(
-        children: [_songCover(),
-          SizedBox(width: 8),
-          _songContent()],
+        children: [_songCover(), SizedBox(width: 8), _songContent()],
       ),
     );
   }
@@ -66,7 +66,26 @@ class SongCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: AppColors.un3active, fontSize: 14),
               ),
-              top: 25)
+              top: 25),
+          Align(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: AcatarRoleName(
+                    avatarUrl: song.user.coverPictureUrl,
+                    nikeName: song.user.nickname,
+                  ),
+                ),
+               Expanded(child:  CommentLikeRead(
+                 commentCount: song.commentCount,
+                 likeCount: song.thumbUpCount,
+                 readCount: song.readCount,
+               ))
+              ],
+            ),
+            alignment: Alignment.bottomLeft,
+          )
         ],
       ),
     ));
