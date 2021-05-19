@@ -1,3 +1,4 @@
+import 'package:duuchinapp/components/icon_text.dart';
 import 'package:duuchinapp/config/app_colors.dart';
 import 'package:duuchinapp/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -15,33 +16,10 @@ class CommentLikeRead extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _iconText('assets/images/icons/comment.png', commentCount),
-        _iconText('assets/images/icons/like.png', likeCount),
-        _iconText('assets/images/icons/read.png', readCount),
+        IconText(icon: 'assets/images/icons/comment.png',text: formatCharCount(commentCount)),
+        IconText(icon: 'assets/images/icons/like.png',text: formatCharCount(likeCount)),
+        IconText(icon: 'assets/images/icons/read.png',text: formatCharCount(readCount)),
       ],
     );
-  }
-
-  Widget _iconText(String icon, int count) {
-    return Expanded(
-        child: Row(
-      children: [
-        Image.asset(
-          icon,
-          width: 18,
-          height: 18,
-        ),
-        Expanded(
-            child: Text(
-          formatCharCount(count),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: 12,
-            color: AppColors.un3active,
-          ),
-        ))
-      ],
-    ));
   }
 }

@@ -6,6 +6,7 @@ import 'package:duuchinapp/models/user_model.dart';
 import 'package:duuchinapp/services/song_service.dart';
 import 'package:duuchinapp/services/user_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class SingerPage extends StatefulWidget {
   @override
@@ -19,21 +20,23 @@ class _SingerPageState extends State<SingerPage> {
   bool hasMore = false;
   bool error = false;
   String errorMsg = '';
+  EasyRefreshController _easyRefreshController;
 
-  void _getUserList({bool push = true}) async {
+  void _getUserList({bool push = false}) async {
     try {
       Map<String, dynamic> result =
           await UserService.getUserList(page: page, limit: limit);
       List<dynamic> songList = result['data'];
-      UserList songListModel = UserList.fromJson(songList);
+      UserList userListModel = UserList.fromJson(songList);
 
       setState(() {
         hasMore = page * limit < result['total'];
+        print("result['total']${result['total']}");
         page++;
         if (push) {
-          _userList.addAll(songListModel.list);
+          _userList.addAll(userListModel.list);
         } else {
-          _userList = songListModel.list;
+          _userList = userListModel.list;
         }
       });
     } catch (e) {
@@ -47,11 +50,39 @@ class _SingerPageState extends State<SingerPage> {
   @override
   void initState() {
     super.initState();
-    _getUserList();
+    _easyRefreshController = EasyRefreshController();
+  }
+
+  Future _onRefresh() async {
+    page = 1;
+    await _getUserList();
+    _easyRefreshController?.finishRefresh();
+    _easyRefreshController?.resetLoadState();
+  }
+
+  Future _onLoad() async {
+    if (hasMore) {
+      await _getUserList(push: true);
+    }
+    print(hasMore);
+    _easyRefreshController?.finishLoad(noMore: !hasMore);
   }
 
   @override
   Widget build(BuildContext context) {
+    return EasyRefresh(
+        controller: _easyRefreshController,
+        header: ClassicalHeader(),
+        footer: ClassicalFooter(),
+        firstRefresh: true,
+        onRefresh: _onRefresh,
+        onLoad: _onLoad,
+        child: _bulidBody());
+
+
+  }
+
+  Widget _bulidBody(){
     return GridView.builder(
       itemCount: _userList.length,
       itemBuilder: (context, index) {

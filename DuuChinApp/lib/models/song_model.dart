@@ -1,15 +1,13 @@
 import 'package:duuchinapp/models/user_model.dart';
 
-class SongList{
+class SongList {
   final List<Song> list;
 
   SongList(this.list);
 
-  factory SongList.fromJson(List<dynamic> datas){
-    return SongList(datas.map((item) => Song.fromJson(item)).toList());
-  }
+  factory SongList.fromJson(List<dynamic> datas) =>
+      SongList(datas.map((item) => Song.fromJson(item)).toList());
 }
-
 
 class Song {
   final int id;
@@ -22,6 +20,7 @@ class Song {
   final int thumbUpCount;
   final int readCount;
   final User user;
+
   Song(
       this.id,
       this.userId,

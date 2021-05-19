@@ -1,8 +1,8 @@
 import 'package:duuchinapp/components/song_card.dart';
-import 'package:duuchinapp/http/http.dart';
 import 'package:duuchinapp/models/song_model.dart';
 import 'package:duuchinapp/services/song_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 class SongPage extends StatefulWidget {
   @override
@@ -16,8 +16,9 @@ class _SongPageState extends State<SongPage> {
   bool hasMore = false;
   bool error = false;
   String errorMsg = '';
+  EasyRefreshController _easyRefreshController;
 
-  void _getSongList({bool push = true}) async {
+  void _getSongList({bool push = false}) async {
     try {
       Map<String, dynamic> result =
           await SongService.getSongList(page: page, limit: limit);
@@ -44,11 +45,36 @@ class _SongPageState extends State<SongPage> {
   @override
   void initState() {
     super.initState();
-    _getSongList();
+    _easyRefreshController = EasyRefreshController();
+  }
+
+  Future _onRefresh() async {
+    page = 1;
+    await _getSongList();
+    _easyRefreshController?.finishRefresh();
+    _easyRefreshController?.resetLoadState();
+  }
+
+  Future _onLoad() async {
+    if (hasMore) {
+      await _getSongList(push: true);
+    }
+    _easyRefreshController?.finishLoad(noMore: !hasMore);
   }
 
   @override
   Widget build(BuildContext context) {
+    return EasyRefresh(
+        controller: _easyRefreshController,
+        header: ClassicalHeader(),
+        footer: ClassicalFooter(),
+        firstRefresh: true,
+        onRefresh: _onRefresh,
+        onLoad: _onLoad,
+        child: _bulidBody());
+  }
+
+  Widget _bulidBody() {
     return ListView.builder(
         itemCount: _songList.length,
         itemBuilder: (context, index) {
