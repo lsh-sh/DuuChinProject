@@ -19,12 +19,12 @@ String formatCharCount(int count) {
   if (count >= 10000) {
     strCount = (count / 10000).toString() + 'w';
     if (strCount.split('.')[1].length > 2) {
-      strCount = strCount.substring(0, strCount.length - 3) + 'w';
+      strCount = strCount.substring(0, strCount.length - 4) + 'w';
     }
   } else if (count >= 1000) {
     strCount = (count / 1000).toString() + 'k';
     if (strCount.split('.')[1].length > 2) {
-      strCount = strCount.substring(0, strCount.length - 1) + 'k';
+      strCount = strCount.substring(0, strCount.length - 3) + 'k';
     }
   }
   return strCount;

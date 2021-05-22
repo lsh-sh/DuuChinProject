@@ -1,16 +1,18 @@
-import 'package:duuchinapp/components/singer_card.dart';
+import 'package:duuchinapp/components/tiny_video_card.dart';
 import 'package:duuchinapp/models/user_model.dart';
-import 'package:duuchinapp/services/user_service.dart';
+import 'package:duuchinapp/models/video_model.dart';
+import 'package:duuchinapp/services/video_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-class SingerPage extends StatefulWidget {
+class TinyVideoPage extends StatefulWidget {
   @override
-  _SingerPageState createState() => _SingerPageState();
+  _TinyVideoPageState createState() => _TinyVideoPageState();
 }
 
-class _SingerPageState extends State<SingerPage> with AutomaticKeepAliveClientMixin {
-  List<User> _userList = [];
+class _TinyVideoPageState extends State<TinyVideoPage>
+    with AutomaticKeepAliveClientMixin {
+  List<Video> _videoList = [];
   int limit = 10;
   int page = 1;
   bool hasMore = true;
@@ -21,18 +23,18 @@ class _SingerPageState extends State<SingerPage> with AutomaticKeepAliveClientMi
   void _getUserList({bool push = false}) async {
     try {
       Map<String, dynamic> result =
-          await UserService.getUserList(page: page, limit: limit);
-      List<dynamic> userList = result['data'];
-      UserList userListModel = UserList.fromJson(userList);
+          await VideoService.getVideoList(page: page, limit: limit);
+      List<dynamic> videoList = result['data'];
+      VideoList videoListModel = VideoList.fromJson(videoList);
 
       setState(() {
         hasMore = page * limit < result['total'];
         print("result['total']${result['total']}");
         page++;
         if (push) {
-          _userList.addAll(userListModel.list);
+          _videoList.addAll(videoListModel.list);
         } else {
-          _userList = userListModel.list;
+          _videoList = videoListModel.list;
         }
       });
     } catch (e) {
@@ -74,29 +76,23 @@ class _SingerPageState extends State<SingerPage> with AutomaticKeepAliveClientMi
         onRefresh: _onRefresh,
         onLoad: _onLoad,
         child: _bulidBody());
-
-
   }
 
-  Widget _bulidBody(){
+  Widget _bulidBody() {
     return GridView.builder(
-      itemCount: _userList.length,
+      itemCount: _videoList.length,
       itemBuilder: (context, index) {
-        User user = _userList[index];
         double pl = index.isEven ? 18 : 9;
         double pr = index.isEven ? 9 : 18;
         return Container(
           padding: EdgeInsets.only(top: 10, left: pl, right: pr),
-          child: SingerCard(
-            avatarUrl: user.coverPictureUrl,
-            nikeName: user.nickname,
-            musicCount: user.musicCount,
-            playCount: user.musicPlayCount,
+          child: TinyVideoCard(
+            video: _videoList[index],
           ),
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: 1 / 1.2),
+          crossAxisCount: 2, childAspectRatio: 1 / 1.95),
     );
   }
 

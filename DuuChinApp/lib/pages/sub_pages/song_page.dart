@@ -9,7 +9,8 @@ class SongPage extends StatefulWidget {
   _SongPageState createState() => _SongPageState();
 }
 
-class _SongPageState extends State<SongPage> {
+class _SongPageState extends State<SongPage>
+    with AutomaticKeepAliveClientMixin {
   List<Song> _songList = [];
   int limit = 10;
   int page = 1;
@@ -46,6 +47,7 @@ class _SongPageState extends State<SongPage> {
   void initState() {
     super.initState();
     _easyRefreshController = EasyRefreshController();
+    _getSongList(push: true);
   }
 
   Future _onRefresh() async {
@@ -64,11 +66,11 @@ class _SongPageState extends State<SongPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return EasyRefresh(
         controller: _easyRefreshController,
         header: ClassicalHeader(),
         footer: ClassicalFooter(),
-        firstRefresh: true,
         onRefresh: _onRefresh,
         onLoad: _onLoad,
         child: _bulidBody());
@@ -81,4 +83,7 @@ class _SongPageState extends State<SongPage> {
           return SongCard(song: _songList[index]);
         });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

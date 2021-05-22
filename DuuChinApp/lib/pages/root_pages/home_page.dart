@@ -1,6 +1,7 @@
 import 'package:duuchinapp/components/root_page_header.dart';
 import 'package:duuchinapp/pages/sub_pages/singer_page.dart';
 import 'package:duuchinapp/pages/sub_pages/song_page.dart';
+import 'package:duuchinapp/pages/sub_pages/tiny_video_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage>
     SongPage(),
     Center(child: Text("111111")),
     SingerPage(),
-    Center(child: Text("111111")),
+    TinyVideoPage(),
     Center(child: Text("111111")),
     Center(child: Text("111111")),
   ];
