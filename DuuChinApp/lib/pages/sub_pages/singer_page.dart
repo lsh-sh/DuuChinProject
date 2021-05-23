@@ -1,4 +1,5 @@
 import 'package:duuchinapp/components/singer_card.dart';
+import 'package:duuchinapp/config/app_colors.dart';
 import 'package:duuchinapp/models/user_model.dart';
 import 'package:duuchinapp/services/user_service.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ class SingerPage extends StatefulWidget {
   _SingerPageState createState() => _SingerPageState();
 }
 
-class _SingerPageState extends State<SingerPage> with AutomaticKeepAliveClientMixin {
+class _SingerPageState extends State<SingerPage>
+    with AutomaticKeepAliveClientMixin {
   List<User> _userList = [];
   int limit = 10;
   int page = 1;
@@ -74,11 +76,9 @@ class _SingerPageState extends State<SingerPage> with AutomaticKeepAliveClientMi
         onRefresh: _onRefresh,
         onLoad: _onLoad,
         child: _bulidBody());
-
-
   }
 
-  Widget _bulidBody(){
+  Widget _bulidBody() {
     return GridView.builder(
       itemCount: _userList.length,
       itemBuilder: (context, index) {
@@ -86,6 +86,9 @@ class _SingerPageState extends State<SingerPage> with AutomaticKeepAliveClientMi
         double pl = index.isEven ? 18 : 9;
         double pr = index.isEven ? 9 : 18;
         return Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(top: BorderSide(color: AppColors.page,width: 8))),
           padding: EdgeInsets.only(top: 10, left: pl, right: pr),
           child: SingerCard(
             avatarUrl: user.coverPictureUrl,
@@ -96,7 +99,7 @@ class _SingerPageState extends State<SingerPage> with AutomaticKeepAliveClientMi
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: 1 / 1.2),
+          crossAxisCount: 2, childAspectRatio: 1 / 1.25),
     );
   }
 

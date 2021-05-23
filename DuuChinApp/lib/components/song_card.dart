@@ -13,8 +13,8 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border:
-              Border(top: BorderSide(color: Colors.black.withOpacity(0.1)))),
+          color: Colors.white,
+          border: Border(top: BorderSide(color: AppColors.page,width: 8))),
       padding: EdgeInsets.all(20),
       child: Row(
         children: [_songCover(), SizedBox(width: 8), _songContent()],
@@ -77,11 +77,12 @@ class SongCard extends StatelessWidget {
                     nikeName: song.user.nickname,
                   ),
                 ),
-               Expanded(child:  CommentLikeRead(
-                 commentCount: song.commentCount,
-                 likeCount: song.thumbUpCount,
-                 readCount: song.readCount,
-               ))
+                Expanded(
+                    child: CommentLikeRead(
+                  commentCount: song.commentCount,
+                  likeCount: song.thumbUpCount,
+                  readCount: song.readCount,
+                ))
               ],
             ),
             alignment: Alignment.bottomLeft,

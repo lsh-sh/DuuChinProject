@@ -1,4 +1,5 @@
 import 'package:duuchinapp/components/root_page_header.dart';
+import 'package:duuchinapp/pages/sub_pages/article_page.dart';
 import 'package:duuchinapp/pages/sub_pages/singer_page.dart';
 import 'package:duuchinapp/pages/sub_pages/song_page.dart';
 import 'package:duuchinapp/pages/sub_pages/tiny_video_page.dart';
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage>
     Center(child: Text("111111")),
     SingerPage(),
     TinyVideoPage(),
-    Center(child: Text("111111")),
+    ArticlePage(),
     Center(child: Text("111111")),
   ];
 

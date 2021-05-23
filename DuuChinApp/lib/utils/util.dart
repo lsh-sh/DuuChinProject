@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 /**
@@ -28,4 +30,9 @@ String formatCharCount(int count) {
     }
   }
   return strCount;
+}
+
+int getRangeRandomInt(int min,int max){
+  final Random random = Random();
+  return min + random.nextInt(max + 1 - min);
 }
